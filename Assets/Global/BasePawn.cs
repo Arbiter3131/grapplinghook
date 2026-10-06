@@ -59,11 +59,13 @@ public class BasePawn : MonoBehaviour
         VerticalVelocity();
     }
 
+    // to be implemented by inheriting classes.
     private void ForwardVelocity()
     {
         
     }
 
+    // to be implemented by inheriting classes.
     private void SidewaysVelocity()
     {
         
