@@ -22,9 +22,9 @@ public class BaseMovement : MonoBehaviour
     void FixedUpdate()
     {
         position = transform.position;
-        ApplyVelocity(new Vector3(0,1,0));
     }
 
+    // check to make sure none of the values are going over our maximum velocity in each direction.
     Vector3 CheckVelocity(Vector3 check)
     {
         Vector3 currentVelocity = rBody.linearVelocity;
@@ -56,12 +56,14 @@ public class BaseMovement : MonoBehaviour
         return resultVelocity;
     }
 
-    // add to the rigidbodies current velocity.
+    // add to the rigidbodies current velocity, do the check to make sure it won't go over our max velocity.
     public void ApplyVelocity(Vector3 veloc)
     {
         rBody.linearVelocity = CheckVelocity(veloc);
     }
 
+
+    // use a raycast to check if we are currently on the ground.
     void CheckGrounded()
     {
         RaycastHit hit;
@@ -74,5 +76,21 @@ public class BaseMovement : MonoBehaviour
             grounded = false;
         }
         // Debug.DrawRay(currentLocation, -Vector3.up * groundheight, Color.yellow);
+    }
+
+    // get function to just return grounded value.
+    public bool GetGrounded()
+    {
+        return grounded;
+    }
+
+    public void SetMaxVelocity(float max)
+    {
+        maxVelocity = max;
+    }
+
+    public void SetHeight(float max)
+    {
+        height = max;
     }
 }
