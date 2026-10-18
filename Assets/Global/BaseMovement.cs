@@ -25,6 +25,7 @@ public class BaseMovement : MonoBehaviour
     }
 
     // check to make sure none of the values are going over our maximum velocity in each direction.
+    // this is wonky with negative directions, rework.
     Vector3 CheckVelocity(Vector3 check)
     {
         Vector3 currentVelocity = rBody.linearVelocity;
@@ -45,9 +46,9 @@ public class BaseMovement : MonoBehaviour
         {
             resultVelocity.y = currentVelocity.y + check.y;
         }
-        if(currentVelocity.y + check.y > maxVelocity)
+        if(currentVelocity.z + check.z > maxVelocity)
         {
-            resultVelocity.y = maxVelocity;
+            resultVelocity.z = maxVelocity;
         }
         else
         {
