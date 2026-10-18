@@ -26,7 +26,7 @@ public class BaseStats : MonoBehaviour
         
     }
 
-    protected void TakeDamage(int damageTaken)
+    public void TakeDamage(int damageTaken)
     {
         if(!invincible)
         {

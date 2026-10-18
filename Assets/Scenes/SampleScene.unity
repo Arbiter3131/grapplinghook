@@ -522,7 +522,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +587,10 @@ GameObject:
   - component: {fileID: 1024552881}
   - component: {fileID: 1024552889}
   - component: {fileID: 1024552890}
+  - component: {fileID: 1024552894}
+  - component: {fileID: 1024552893}
+  - component: {fileID: 1024552892}
+  - component: {fileID: 1024552891}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -619,7 +623,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1024552882
 CapsuleCollider:
@@ -628,7 +632,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024552880}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0895cbb55d370064791c7b9969caa47d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -759,6 +763,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1d0c3200726b54ea83613cee48ca4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseMovement
+--- !u!114 &1024552891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024552880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023b49c0f9c975d47a6c3d07c4dadbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseStats
+--- !u!114 &1024552892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024552880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537e7c024b458c54dbc357cd98dc4f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementHandler
+--- !u!114 &1024552893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024552880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 590abd07881e6344a850676153bc4c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
+--- !u!114 &1024552894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024552880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b876f22b40639040a97cd94710c913a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &1424187134
 GameObject:
   m_ObjectHideFlags: 0

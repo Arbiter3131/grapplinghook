@@ -10,7 +10,7 @@ public class BaseMovement : MonoBehaviour
     float height = 1.0f;
     Vector3 position;
     // maxVelocity should have a function to overwrite it.
-    float maxVelocity = 5.0f;
+    float maxVelocity = 1.0f;
     
     void Start()
     {

@@ -8,15 +8,36 @@ public abstract class BaseController : MonoBehaviour
 
     // this should not be directly used, this will just serve as an abstract, as in a guide to implement the specific enemy/player controllers.
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // probably call some gravity functions here.
+
+    // ScriptModuleName scriptmodulename;
+
+    // void Start()
+    // find and assign scriptmodulenames
+    // scriptmodulename = transform.getComponent<ScriptModuleName>();
+
+    BaseStats baseStats;
+    BaseMovement baseMovement;
+
+    protected virtual void Start()
     {
-        
+        baseStats = transform.GetComponent<BaseStats>();
+        baseMovement = transform.GetComponent<BaseMovement>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // This would allow other modules such as a grappling hook script to call BaseMovement and modify the velocity.
+    public virtual void ChangeVelocity(Vector3 input)
     {
-        
+        baseMovement.ApplyVelocity(input);
+    }
+
+    public virtual void ChangeStats(int stat)
+    {
+        baseStats.TakeDamage(stat);
+    }
+
+    public virtual bool GetGroundedVal()
+    {
+        return baseMovement.GetGrounded();
     }
 }
