@@ -40,4 +40,9 @@ public abstract class BaseController : MonoBehaviour
     {
         return baseMovement.GetGrounded();
     }
+
+    public virtual Vector3 GetCurrentVelocity()
+    {
+        return baseMovement.GetCurrentVelocity();
+    }
 }

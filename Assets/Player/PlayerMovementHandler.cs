@@ -12,7 +12,7 @@ public class PlayerMovementHandler : MonoBehaviour
     Vector3 totalAcceleration = new Vector3(0,0,0);
 
     // How much we want a player to accelerate in a direction when input is detected.
-    float acceleration = 0.1f;
+    float acceleration = 0.5f;
     Vector2 playerInput = new Vector2(0,0);
 
     // Air Resistance. False by default. Should be disabled when wallrunning or slashing.
@@ -32,7 +32,7 @@ public class PlayerMovementHandler : MonoBehaviour
     // gravAccel is base acceleration of gravity for player, gravity is on by default
     // should be turned off for future wallrunning and slashing mechanics.
     bool gravity = true;
-    float gravAccel = 0.5f;
+    float gravAccel = 1f;
 
     // list of stuff we need to keep track of.
     PlayerController controller;
@@ -48,6 +48,7 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         ApplyGravity();
         ApplyMovement();
+        ApplyFriction();
         CallChangeVelocity();
         totalAcceleration = new Vector3(0,0,0);
     }
@@ -70,18 +71,20 @@ public class PlayerMovementHandler : MonoBehaviour
     // Apply gravity to our velocity.
     void ApplyGravity()
     {
-        if(gravity)
+        if(gravity && !controller.GetGroundedVal())
         {
             totalAcceleration.y -= gravAccel;
         }
     }
 
-    // calls Changevelocity in the controller, which then applys the velocity to the BaseMovement script.
+    // calls Changevelocity in the controller, which then applies the velocity to the BaseMovement script.
     void CallChangeVelocity()
     {
         controller.ChangeVelocity(totalAcceleration);
     }
 
+    // apply movement in the directions that the player is inputting.
+    // something is wrong, it's applying a weird slightly diagonal velocity.
     void ApplyMovement()
     {
         Vector3 movementVector = new Vector3(0,0,0);
@@ -91,6 +94,19 @@ public class PlayerMovementHandler : MonoBehaviour
 
         movementVector += sideMove + forwardMove;
         totalAcceleration += movementVector;
+    }
+
+    // If player input disable friction or disable friction in specific directions?
+    // This would work best as a vector always pointing in the opposite direction from the totalAcceleration vector.
+    void ApplyFriction()
+    {
+        if(controller.GetGroundedVal() && friction)
+        {
+            Vector3 currentAccelCopy = controller.GetCurrentVelocity();
+            Vector3 frictionVector = currentAccelCopy.normalized * -1 * frictionVal;
+            frictionVector.y = 0;
+            totalAcceleration += frictionVector;
+        }
     }
 
     public void CurrentMoveInput(Vector2 v)

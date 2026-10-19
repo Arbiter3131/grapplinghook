@@ -10,7 +10,7 @@ public class BaseMovement : MonoBehaviour
     float height = 1.0f;
     Vector3 position;
     // maxVelocity should have a function to overwrite it.
-    float maxVelocity = 1.0f;
+    float maxVelocity = 5.0f;
     
     void Start()
     {
@@ -22,38 +22,17 @@ public class BaseMovement : MonoBehaviour
     void FixedUpdate()
     {
         position = transform.position;
+        CheckGrounded();
     }
 
     // check to make sure none of the values are going over our maximum velocity in each direction.
-    // this is wonky with negative directions, rework.
     Vector3 CheckVelocity(Vector3 check)
     {
         Vector3 currentVelocity = rBody.linearVelocity;
         Vector3 resultVelocity = new Vector3(0,0,0);
-        if(currentVelocity.x + check.x > maxVelocity)
-        {
-            resultVelocity.x = maxVelocity;
-        }
-        else
-        {
-            resultVelocity.x = currentVelocity.x + check.x;
-        }
-        if(currentVelocity.y + check.y > maxVelocity)
-        {
-            resultVelocity.y = maxVelocity;
-        }
-        else
-        {
-            resultVelocity.y = currentVelocity.y + check.y;
-        }
-        if(currentVelocity.z + check.z > maxVelocity)
-        {
-            resultVelocity.z = maxVelocity;
-        }
-        else
-        {
-            resultVelocity.z = currentVelocity.z + check.z;
-        }
+        resultVelocity.x = Mathf.Clamp(currentVelocity.x + check.x, -maxVelocity, maxVelocity);
+        resultVelocity.y = Mathf.Clamp(currentVelocity.y + check.y, -maxVelocity, maxVelocity);
+        resultVelocity.z = Mathf.Clamp(currentVelocity.z + check.z, -maxVelocity, maxVelocity);
         return resultVelocity;
     }
 
@@ -76,7 +55,12 @@ public class BaseMovement : MonoBehaviour
         {
             grounded = false;
         }
-        // Debug.DrawRay(currentLocation, -Vector3.up * groundheight, Color.yellow);
+        // Debug.DrawRay(position, -Vector3.up * height, Color.yellow);
+    }
+
+    public Vector3 GetCurrentVelocity()
+    {
+        return rBody.linearVelocity;
     }
 
     // get function to just return grounded value.
