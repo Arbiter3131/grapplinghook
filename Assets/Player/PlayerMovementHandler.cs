@@ -57,6 +57,9 @@ public class PlayerMovementHandler : MonoBehaviour
     // Rotates the player directly by the x input of the mouse movement * looksensitivity to control how fast the camera moves.
     // upDownLook tracks the vertical camera look, with a maximum and minimum of -90 to 90 so that the camera doesn't flip.
     // then the cameras local rotation is set to the value of upDownLook.
+    // the camera just seems to be messing up a lot of stuff.
+    // not the camera, looks like just the rotation of the body messes up the movement
+    // no clue why...
     public void CameraMovement(Vector2 v)
     {
         float leftRight = v.x * lookSens;
@@ -85,6 +88,9 @@ public class PlayerMovementHandler : MonoBehaviour
 
     // apply movement in the directions that the player is inputting.
     // something is wrong, it's applying a weird slightly diagonal velocity.
+    // it looks like something with camera movement is messing things up a bit.
+    // friction gets completely broken for some reason when you accel in a direction
+    // and then turn the camera???
     void ApplyMovement()
     {
         Vector3 movementVector = new Vector3(0,0,0);
