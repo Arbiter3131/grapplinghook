@@ -16,10 +16,10 @@ public class PlayerMovementHandler : MonoBehaviour
     Vector2 playerInput = new Vector2(0,0);
 
     // Air Resistance. False by default. Should be disabled when wallrunning or slashing.
-    bool airResist = false;
-    float airResistVal = 0.1f;
+    bool airResist = true;
+    float airResistVal = 0.05f;
 
-    // Friction. True by default, we assume the player is on the ground in the beginning.
+    // Friction. Enable or disable it.
     bool friction = true;
     float frictionVal = 0.1f;
 
@@ -32,7 +32,7 @@ public class PlayerMovementHandler : MonoBehaviour
     // gravAccel is base acceleration of gravity for player, gravity is on by default
     // should be turned off for future wallrunning and slashing mechanics.
     bool gravity = true;
-    float gravAccel = 1f;
+    float gravAccel = 0.2f;
 
     // list of stuff we need to keep track of.
     PlayerController controller;
@@ -49,7 +49,9 @@ public class PlayerMovementHandler : MonoBehaviour
         ApplyGravity();
         ApplyMovement();
         ApplyFriction();
+        ApplyAirResistance();
         CallChangeVelocity();
+        Debug.DrawRay(transform.position, totalAcceleration * 5f, Color.green);
         totalAcceleration = new Vector3(0,0,0);
     }
 
@@ -81,9 +83,10 @@ public class PlayerMovementHandler : MonoBehaviour
     }
 
     // calls Changevelocity in the controller, which then applies the velocity to the BaseMovement script.
+    // multiply our totalacceleration by time.fixeddeltatime, to get the change in velocity/second from our acceleration.
     void CallChangeVelocity()
     {
-        controller.ChangeVelocity(totalAcceleration);
+        controller.ChangeVelocity(totalAcceleration * Time.fixedDeltaTime);
     }
 
     // apply movement in the directions that the player is inputting.
@@ -91,15 +94,18 @@ public class PlayerMovementHandler : MonoBehaviour
     // it looks like something with camera movement is messing things up a bit.
     // friction gets completely broken for some reason when you accel in a direction
     // and then turn the camera???
+    // fixed in basemovement, was an issue in the way I was clamping maximum velocity vectors.
     void ApplyMovement()
     {
-        Vector3 movementVector = new Vector3(0,0,0);
-
         Vector3 sideMove = transform.right * playerInput.x * acceleration;
         Vector3 forwardMove = transform.forward * playerInput.y * acceleration;
 
-        movementVector += sideMove + forwardMove;
-        totalAcceleration += movementVector;
+        // Debug.DrawRay(transform.position, transform.forward * 5f, Color.blue);
+        // Debug.DrawRay(transform.position, transform.right * 5f, Color.red);
+        // Debug.DrawRay(transform.position, sideMove * 5f, Color.green);
+        // Debug.DrawRay(transform.position, forwardMove * 5f, Color.green);
+
+        totalAcceleration += sideMove + forwardMove;
     }
 
     // If player input disable friction or disable friction in specific directions?
@@ -112,6 +118,17 @@ public class PlayerMovementHandler : MonoBehaviour
             Vector3 frictionVector = currentAccelCopy.normalized * -1 * frictionVal;
             frictionVector.y = 0;
             totalAcceleration += frictionVector;
+        }
+    }
+
+    // air resistance, pretty much just friction with an added y value.
+    void ApplyAirResistance()
+    {
+        if(!controller.GetGroundedVal() && airResist)
+        {
+            Vector3 currentAccelCopy = controller.GetCurrentVelocity();
+            Vector3 airResistVector = currentAccelCopy.normalized * -1 * airResistVal;
+            totalAcceleration += airResistVector;
         }
     }
 
