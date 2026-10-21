@@ -10,7 +10,10 @@ public class BaseMovement : MonoBehaviour
     float height = 1.1f;
     Vector3 position;
     // maxVelocity should have a function to overwrite it.
+    // maxVelocityY adds to the maximum velocity of the y value, so that the player and maybe certain enemies
+    // can move up and down faster.
     float maxVelocity = 0.5f;
+    float maxVelocityY = 5f;
 
     // current velocity that we should move this character by each fixedUpdate.
     Vector3 currVelocity = new Vector3(0f,0f,0f);
@@ -51,9 +54,9 @@ public class BaseMovement : MonoBehaviour
         {
             resultVectorXZ = resultVectorXZ.normalized * maxVelocity;
         }
-        if(resultVectorY.magnitude > maxVelocity)
+        if(resultVectorY.magnitude > maxVelocityY)
         {
-            resultVectorY = resultVectorY.normalized * maxVelocity;
+            resultVectorY = resultVectorY.normalized * maxVelocityY;
         }
         return resultVectorXZ + resultVectorY;
     }
@@ -98,9 +101,10 @@ public class BaseMovement : MonoBehaviour
         return grounded;
     }
 
-    public void SetMaxVelocity(float max)
+    public void SetMaxVelocity(float max, float maxY=1.0f)
     {
         maxVelocity = max;
+        maxVelocityY = maxY;
     }
 
     public void SetHeight(float max)

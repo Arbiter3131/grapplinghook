@@ -37,6 +37,9 @@ public class PlayerMovementHandler : MonoBehaviour
     // list of stuff we need to keep track of.
     PlayerController controller;
 
+    // Player Jump acceleration, how much we should add to the players acceleration while they're jumping.
+    float jumpAccel = 10f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -129,6 +132,14 @@ public class PlayerMovementHandler : MonoBehaviour
             Vector3 currentAccelCopy = controller.GetCurrentVelocity();
             Vector3 airResistVector = currentAccelCopy.normalized * -1 * airResistVal;
             totalAcceleration += airResistVector;
+        }
+    }
+
+    public void PlayerJump()
+    {
+        if(controller.GetGroundedVal())
+        {
+            totalAcceleration.y += jumpAccel;
         }
     }
 

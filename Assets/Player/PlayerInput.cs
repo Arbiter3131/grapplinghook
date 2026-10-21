@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
     public void OnJump()
     {
-        UnityEngine.Debug.Log("jumped");
+        controller.CallPlayerJump();
     }
 
     public void OnMove(InputValue value)

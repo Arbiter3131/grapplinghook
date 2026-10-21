@@ -16,8 +16,8 @@ public abstract class BaseController : MonoBehaviour
     // find and assign scriptmodulenames
     // scriptmodulename = transform.getComponent<ScriptModuleName>();
 
-    BaseStats baseStats;
-    BaseMovement baseMovement;
+    protected BaseStats baseStats;
+    protected BaseMovement baseMovement;
 
     protected virtual void Start()
     {
