@@ -12,7 +12,7 @@ public class PlayerMovementHandler : MonoBehaviour
     Vector3 totalAcceleration = new Vector3(0,0,0);
 
     // How much we want a player to accelerate in a direction when input is detected.
-    float acceleration = 0.5f;
+    float acceleration = 1f;
     Vector2 playerInput = new Vector2(0,0);
 
     // Air Resistance. False by default. Should be disabled when wallrunning or slashing.
@@ -76,6 +76,11 @@ public class PlayerMovementHandler : MonoBehaviour
         camera.transform.localRotation = Quaternion.Euler(upDownLook, 0f, 0f);
     }
 
+    public Vector3 GetCameraDirection()
+    {
+        return camera.transform.forward;
+    }
+
     // Apply gravity to our velocity.
     void ApplyGravity()
     {
@@ -89,7 +94,7 @@ public class PlayerMovementHandler : MonoBehaviour
     // multiply our totalacceleration by time.fixeddeltatime, to get the change in velocity/second from our acceleration.
     void CallChangeVelocity()
     {
-        controller.ChangeVelocity(totalAcceleration * Time.fixedDeltaTime);
+        controller.ChangeVelocity(totalAcceleration);
     }
 
     // apply movement in the directions that the player is inputting.
@@ -147,4 +152,15 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         playerInput = v;
     }
+
+    public void ToggleAirResistance()
+    {
+        airResist = !airResist;
+    }
+
+    public void ToggleGravity()
+    {
+        airResist = !gravity;
+    }
 }
+

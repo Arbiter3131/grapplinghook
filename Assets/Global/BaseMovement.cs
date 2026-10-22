@@ -5,20 +5,28 @@ public class BaseMovement : MonoBehaviour
     // BaseMovement should keep track of velocities and acceleration, providing the functions to update those and should handle updating the position of the object its on.
 
     // height is the length of the raycast we should check to see if this character is standing on something. Default is 1.0f.
-    CharacterController character;
+    Rigidbody character;
     bool grounded;
     float height = 1.1f;
     Vector3 position;
     // maxVelocity should have a function to overwrite it.
     // maxVelocityY adds to the maximum velocity of the y value, so that the player and maybe certain enemies
     // can move up and down faster.
-    float maxVelocity = 0.5f;
+    float maxVelocity = 1f;
     float maxVelocityY = 5f;
 
     // stopVelocity, when should we decide to set the players velocity to 0 (prevent weird sliding)
 
     // current velocity that we should move this character by each fixedUpdate.
-    Vector3 currVelocity = new Vector3(0f,0f,0f);
+    // There was a bunch of issues between character controllers and rigidbodies, I finally fixed
+    // the weird sliding issue with the Rigidbody so i swapped back to using that.
+    // the advantage of a rigidbody over the charactercontroller, is that the rigidbody
+    // has a built in velocity.
+    // what this means, is that I can directly set the velocity of the rigidbody in a direction.
+    // and I don't have to do my own calculations/checks to ensure that velocity isn't preserved if the player
+    // runs into a wall. (Player would retain velocity in the walls direction, if moving away you would need to "slow down" in the walls direction)
+    // essentially, at the moment I'm using UnityEngine physics for just collision detection and velocity at this point.
+    // Vector3 currVelocity = new Vector3(0f,0f,0f);
 
     // Layermask to detect objects we can stand on.
     LayerMask solidMask;
@@ -31,7 +39,7 @@ public class BaseMovement : MonoBehaviour
     void Start()
     {
         // rBody = transform.GetComponent<Rigidbody>();
-        character = transform.GetComponent<CharacterController>();
+        character = transform.GetComponent<Rigidbody>();
         grounded = false;
         position = transform.position;
     }
@@ -40,12 +48,10 @@ public class BaseMovement : MonoBehaviour
     {
         position = transform.position;
         CheckGrounded();
-        UnityEngine.Debug.Log(currVelocity);
-        if(currVelocity.magnitude < 0.001f)
+        if(character.linearVelocity.magnitude < 0.005f)
         {
-            currVelocity = Vector3.zero;
+            character.linearVelocity = Vector3.zero;
         }
-        character.Move(currVelocity);
     }
 
     // check to make sure none of the values are going over our maximum velocity in each direction.
@@ -54,8 +60,8 @@ public class BaseMovement : MonoBehaviour
     // Separating y axis velocity and forward/sideways velocity.
     Vector3 CheckVelocity(Vector3 check)
     {
-        Vector3 resultVectorXZ = new Vector3(currVelocity.x + check.x, 0f, currVelocity.z + check.z);
-        Vector3 resultVectorY = new Vector3(0f, currVelocity.y + check.y, 0f);
+        Vector3 resultVectorXZ = new Vector3(character.linearVelocity.x + check.x, 0f, character.linearVelocity.z + check.z);
+        Vector3 resultVectorY = new Vector3(0f, character.linearVelocity.y + check.y, 0f);
 
         if(resultVectorXZ.magnitude > maxVelocity)
         {
@@ -73,7 +79,7 @@ public class BaseMovement : MonoBehaviour
     public void ApplyVelocity(Vector3 veloc)
     {
         // rBody.linearVelocity = CheckVelocity(veloc);
-        currVelocity = CheckVelocity(veloc);
+        character.linearVelocity = CheckVelocity(veloc);
     }
 
 
@@ -84,10 +90,10 @@ public class BaseMovement : MonoBehaviour
         if(Physics.Raycast(position, -Vector3.up, out hit, height, solidMask))
         {
             grounded = true;
-            if(currVelocity.y < 0f)
-            {
-                currVelocity.y = 0f;
-            }
+            // if(currVelocity.y < 0f)
+            // {
+            //     currVelocity.y = 0f;
+            // }
         }
         else
         {
@@ -98,7 +104,7 @@ public class BaseMovement : MonoBehaviour
 
     public Vector3 GetCurrentVelocity()
     {
-        Vector3 returnVel = currVelocity;
+        Vector3 returnVel = character.linearVelocity;
         return returnVel;
     }
 

@@ -31,4 +31,10 @@ public class PlayerInput : MonoBehaviour
         var v = value.Get<Vector2>();
         controller.PlayerMovement(v);
     }
+
+    public void OnRightClick(InputValue value)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        controller.AttemptGrapple(value.isPressed);
+    }
 }
