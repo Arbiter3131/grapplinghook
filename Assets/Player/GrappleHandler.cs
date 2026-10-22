@@ -3,7 +3,7 @@ using UnityEngine;
 public class GrappleHandler : MonoBehaviour
 {
     // Maximum Length of the Grappling Hook (how far the player can grapple away from)
-    float maxLength = 10f;
+    float maxLength = 15f;
 
     // If we are currently grappled to something. False by default.
     bool isGrappled = false;
@@ -14,7 +14,7 @@ public class GrappleHandler : MonoBehaviour
     // This may be kept or not, initial intention was for the grappling hook
     // to just be used to change directions and swing.
     // though the pulling towards is pretty fun so I might just keep it.
-    float pullStrength = 1.0f;
+    float pullStrength = 0.5f;
 
     // player controller
     PlayerController controller;
@@ -81,10 +81,20 @@ public class GrappleHandler : MonoBehaviour
     // and use it's force constraints to swing themselves.
     // but the pull towards the grapple point seems pretty fun as well.
     // will need more testing to determine.
+    // decided to do a combination of the two, the pull strength is lower, but when beyond the max distance
+    // the pull strength increases.
     void GrapplePhysics()
     {
-        Vector3 grappleVector = (grapplePosition - transform.position).normalized;
+        Vector3 grappleVector = grapplePosition - transform.position;
         Debug.DrawRay(transform.position, grappleVector*maxLength, Color.red);
-        controller.ChangeVelocity(grappleVector * pullStrength);
+        if(grappleVector.magnitude > maxLength)
+        {
+            controller.ChangeVelocity(grappleVector.normalized * pullStrength * 3f);
+        }
+        else
+        {
+            controller.ChangeVelocity(grappleVector.normalized * pullStrength);
+        }
+        
     }
 }
