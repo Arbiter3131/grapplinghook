@@ -15,6 +15,8 @@ public class BaseMovement : MonoBehaviour
     float maxVelocity = 0.5f;
     float maxVelocityY = 5f;
 
+    // stopVelocity, when should we decide to set the players velocity to 0 (prevent weird sliding)
+
     // current velocity that we should move this character by each fixedUpdate.
     Vector3 currVelocity = new Vector3(0f,0f,0f);
 
@@ -38,6 +40,11 @@ public class BaseMovement : MonoBehaviour
     {
         position = transform.position;
         CheckGrounded();
+        UnityEngine.Debug.Log(currVelocity);
+        if(currVelocity.magnitude < 0.001f)
+        {
+            currVelocity = Vector3.zero;
+        }
         character.Move(currVelocity);
     }
 
