@@ -3,7 +3,10 @@ using UnityEngine;
 public class GrappleHandler : MonoBehaviour
 {
     // Maximum Length of the Grappling Hook (how far the player can grapple away from)
-    float maxLength = 15f;
+    float maxLength = 30f;
+
+    // Current Length of the grappling hook.
+    float length;
 
     // If we are currently grappled to something. False by default.
     bool isGrappled = false;
@@ -14,7 +17,7 @@ public class GrappleHandler : MonoBehaviour
     // This may be kept or not, initial intention was for the grappling hook
     // to just be used to change directions and swing.
     // though the pulling towards is pretty fun so I might just keep it.
-    float pullStrength = 0.5f;
+    // float pullStrength = 0.5f;
 
     // player controller
     PlayerController controller;
@@ -54,13 +57,9 @@ public class GrappleHandler : MonoBehaviour
                     UnityEngine.Debug.Log(hit.transform.gameObject);
                     isGrappled = true;
                     grapplePosition = hit.point;
+                    length = hit.distance;
                     controller.ToggleAirResist();
                 }
-            }
-            else
-            {
-                // not grappled on a miss (skill issue).
-                isGrappled = false;
             }
         }
         else
@@ -81,20 +80,43 @@ public class GrappleHandler : MonoBehaviour
     // and use it's force constraints to swing themselves.
     // but the pull towards the grapple point seems pretty fun as well.
     // will need more testing to determine.
-    // decided to do a combination of the two, the pull strength is lower, but when beyond the max distance
-    // the pull strength increases.
+    // This has been deprecated, if you want to test the old physics it has been left here.
+    // void GrapplePhysics()
+    // {
+    //     Vector3 grappleVector = grapplePosition - transform.position;
+    //     Debug.DrawRay(transform.position, grappleVector*maxLength, Color.red);
+    //     if(grappleVector.magnitude > maxLength)
+    //     {
+    //         controller.ChangeVelocity(grappleVector.normalized * pullStrength * 3f);
+    //     }
+    //     else
+    //     {
+    //         controller.ChangeVelocity(grappleVector.normalized * pullStrength);
+    //     }
+        
+    // }
+
+    // get the current distance between the grapplePosition and the players current position.
+    // get their current velocity.
+    // project their current velocity onto the grapplevector to get how much they're moving away from the grapple point.
+    // get the dot product between the grapple vector and the velocity they are moving away from the grapple point.
+    // this allows us to get their current direction of movement, towards or away from the grapple point.
+    // then if the dot product is < 0, it means that we are moving away from the grapple point.
+    // if we are over the length at which we shot the grapple, cancel out the movement in the direction away from the grapple.
+    // this gives us swinging physics.
+    // Currently, we can still manage to get past the current length by swinging really fast in circles around objects
+    // or just continuously moving away from the grapple point.
+    // it doesn't serve much use in actual gameplay though, so I might just leave it in.
     void GrapplePhysics()
     {
         Vector3 grappleVector = grapplePosition - transform.position;
-        Debug.DrawRay(transform.position, grappleVector*maxLength, Color.red);
-        if(grappleVector.magnitude > maxLength)
+        Vector3 currVeloc = controller.GetCurrentVelocity();
+        Vector3 velocAwayFromGrapple = Vector3.Project(currVeloc, grappleVector);
+        float dotProduct = Vector3.Dot(grappleVector, velocAwayFromGrapple);
+        Debug.DrawRay(transform.position, grappleVector*length, Color.red);
+        if(grappleVector.magnitude > length && dotProduct < 0)
         {
-            controller.ChangeVelocity(grappleVector.normalized * pullStrength * 3f);
+            controller.ChangeVelocity(velocAwayFromGrapple * -1);
         }
-        else
-        {
-            controller.ChangeVelocity(grappleVector.normalized * pullStrength);
-        }
-        
     }
 }
