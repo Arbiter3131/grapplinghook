@@ -9,6 +9,8 @@ public class PlayerController : BaseController
 
     SlashHandler slashHandler;
 
+    WallrunHandler wallrunHandler;
+
     // set player max velocity in directions, should not change the values in basemovement anymore.
     float playerMaxV = 20f;
     float playerMaxVY = 20f;
@@ -19,6 +21,7 @@ public class PlayerController : BaseController
         playerMovementHandler = transform.GetComponent<PlayerMovementHandler>();
         grappleHandler = transform.GetComponent<GrappleHandler>();
         slashHandler = transform.GetComponent<SlashHandler>();
+        wallrunHandler = transform.GetComponent<WallrunHandler>();
         baseMovement.SetMaxVelocity(playerMaxV, playerMaxVY);
     }
 
