@@ -54,7 +54,7 @@ public class GrappleHandler : MonoBehaviour
                 // make sure its a grappleable surface, if not, then don't do anything.
                 if(hit.transform.gameObject.layer == 3)
                 {
-                    UnityEngine.Debug.Log(hit.transform.gameObject);
+                    // UnityEngine.Debug.Log(hit.transform.gameObject);
                     isGrappled = true;
                     grapplePosition = hit.point;
                     length = hit.distance;
@@ -72,6 +72,16 @@ public class GrappleHandler : MonoBehaviour
             }
             isGrappled = false;
         }
+    }
+
+    // method to cancel the current grapple, in the case that the player attempts to slash whilst grappling.
+    public void CancelGrapple()
+    {
+        if(isGrappled)
+        {
+            controller.ToggleAirResist();
+        }
+        isGrappled = false;
     }
 
     // for now, just accelerate the player towards the grappled points until released.

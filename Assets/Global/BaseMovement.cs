@@ -48,7 +48,7 @@ public class BaseMovement : MonoBehaviour
     {
         position = transform.position;
         CheckGrounded();
-        if(character.linearVelocity.magnitude < 0.005f)
+        if(character.linearVelocity.magnitude < 0.05f)
         {
             character.linearVelocity = Vector3.zero;
         }
@@ -75,11 +75,15 @@ public class BaseMovement : MonoBehaviour
     }
 
     // add to the rigidbodies current velocity, do the check to make sure it won't go over our max velocity.
-    // we aren't using rigidbodies anymore, now using charactercontrollers.
     public void ApplyVelocity(Vector3 veloc)
     {
-        // rBody.linearVelocity = CheckVelocity(veloc);
         character.linearVelocity = CheckVelocity(veloc);
+    }
+
+    // set the velocity directly, should only be used by the Slash.
+    public void SetVelocity(Vector3 veloc)
+    {
+        character.linearVelocity = veloc;
     }
 
 
@@ -90,10 +94,6 @@ public class BaseMovement : MonoBehaviour
         if(Physics.Raycast(position, -Vector3.up, out hit, height, solidMask))
         {
             grounded = true;
-            // if(currVelocity.y < 0f)
-            // {
-            //     currVelocity.y = 0f;
-            // }
         }
         else
         {

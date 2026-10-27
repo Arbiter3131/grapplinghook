@@ -7,6 +7,8 @@ public class PlayerController : BaseController
 
     GrappleHandler grappleHandler;
 
+    SlashHandler slashHandler;
+
     // set player max velocity in directions, should not change the values in basemovement anymore.
     float playerMaxV = 20f;
     float playerMaxVY = 20f;
@@ -16,6 +18,7 @@ public class PlayerController : BaseController
         base.Start();
         playerMovementHandler = transform.GetComponent<PlayerMovementHandler>();
         grappleHandler = transform.GetComponent<GrappleHandler>();
+        slashHandler = transform.GetComponent<SlashHandler>();
         baseMovement.SetMaxVelocity(playerMaxV, playerMaxVY);
     }
 
@@ -59,4 +62,15 @@ public class PlayerController : BaseController
     {
         playerMovementHandler.ToggleGravity();
     }
+
+    public void AttemptSlash(bool v)
+    {
+        slashHandler.SlashInput(v);
+    }
+
+    public void StopGrapple()
+    {
+        grappleHandler.CancelGrapple();
+    }
+
 }

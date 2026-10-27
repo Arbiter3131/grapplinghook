@@ -31,6 +31,11 @@ public abstract class BaseController : MonoBehaviour
         baseMovement.ApplyVelocity(input);
     }
 
+    public virtual void HardSetVelocity(Vector3 input)
+    {
+        baseMovement.SetVelocity(input);
+    }
+
     public virtual void ChangeStats(int stat)
     {
         baseStats.TakeDamage(stat);

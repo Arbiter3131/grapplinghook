@@ -1422,6 +1422,7 @@ GameObject:
   - component: {fileID: 1024552891}
   - component: {fileID: 1024552895}
   - component: {fileID: 1024552896}
+  - component: {fileID: 1024552897}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -1654,6 +1655,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8895819737943a34ca4eee729b9a867a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrappleHandler
+--- !u!114 &1024552897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024552880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4594e376e2ceb4d93b1379c14c8cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlashHandler
 --- !u!1001 &1063380374
 PrefabInstance:
   m_ObjectHideFlags: 0

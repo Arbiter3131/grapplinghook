@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     {
         input = transform.GetComponent<PlayerInputManager>();
         controller = transform.GetComponent<PlayerController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // if mouse is moved, this function gets called.
@@ -34,7 +35,11 @@ public class PlayerInput : MonoBehaviour
 
     public void OnRightClick(InputValue value)
     {
-        Cursor.lockState = CursorLockMode.Locked;
         controller.AttemptGrapple(value.isPressed);
+    }
+
+    public void OnClick(InputValue value)
+    {
+        controller.AttemptSlash(value.isPressed);
     }
 }
