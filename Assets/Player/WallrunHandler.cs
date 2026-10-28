@@ -72,6 +72,11 @@ public class WallrunHandler : MonoBehaviour
         }
     }
 
+    // constantly check if the wall that we are running on is still there.
+    // this is robust enough that I don't have to code in a "cancel wallrun" for when
+    // the player slashes.
+    // this also works for the grapple, the player is pulled off the wall when a grapple
+    // would effect the players movement.
     void CheckWallRun()
     {
         if(!Physics.Raycast(transform.position, wallDirection, wallDistance, solidMask))
@@ -83,7 +88,6 @@ public class WallrunHandler : MonoBehaviour
     // if we are wallrunning and the player presses space again, jump off the wall.
     void JumpOff()
     {
-        UnityEngine.Debug.Log("Jumpedoff");
         controller.ToggleGravity();
         controller.TogglePlayerMoveInput();
         isWallRunning = false;
@@ -94,7 +98,7 @@ public class WallrunHandler : MonoBehaviour
     {
         controller.ToggleGravity();
         controller.TogglePlayerMoveInput();
-        UnityEngine.Debug.Log(wallRunDirection);
+        // UnityEngine.Debug.Log(wallRunDirection);
         controller.HardSetVelocity(wallRunDirection * wallRunVelocity);
     }
 }

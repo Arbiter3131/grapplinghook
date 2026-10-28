@@ -89,7 +89,6 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         if(gravity && !controller.GetGroundedVal())
         {
-            UnityEngine.Debug.Log("mweheheheh");
             totalAcceleration.y -= gravAccel;
         }
     }
@@ -166,7 +165,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
     public void ToggleGravity()
     {
-        airResist = !gravity;
+        gravity = !gravity;
     }
 
     public void ToggleInput()
