@@ -39,6 +39,9 @@ public class PlayerMovementHandler : MonoBehaviour
 
     // Player Jump acceleration, how much we should add to the players acceleration while they're jumping.
     float jumpAccel = 10f;
+    
+    // if we need to disable player wasd movement.
+    bool inputEnabled = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,7 +57,7 @@ public class PlayerMovementHandler : MonoBehaviour
         ApplyFriction();
         ApplyAirResistance();
         CallChangeVelocity();
-        Debug.DrawRay(transform.position, totalAcceleration * 5f, Color.green);
+        // Debug.DrawRay(transform.position, totalAcceleration * 5f, Color.green);
         totalAcceleration = new Vector3(0,0,0);
     }
 
@@ -86,6 +89,7 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         if(gravity && !controller.GetGroundedVal())
         {
+            UnityEngine.Debug.Log("mweheheheh");
             totalAcceleration.y -= gravAccel;
         }
     }
@@ -105,6 +109,10 @@ public class PlayerMovementHandler : MonoBehaviour
     // fixed in basemovement, was an issue in the way I was clamping maximum velocity vectors.
     void ApplyMovement()
     {
+        if(!inputEnabled)
+        {
+            return;
+        }
         Vector3 sideMove = transform.right * playerInput.x * acceleration;
         Vector3 forwardMove = transform.forward * playerInput.y * acceleration;
 
@@ -140,12 +148,10 @@ public class PlayerMovementHandler : MonoBehaviour
         }
     }
 
+    // grounded check moved to player controller to facilitate wallrunning.
     public void PlayerJump()
     {
-        if(controller.GetGroundedVal())
-        {
-            totalAcceleration.y += jumpAccel;
-        }
+        totalAcceleration.y += jumpAccel;
     }
 
     public void CurrentMoveInput(Vector2 v)
@@ -161,6 +167,11 @@ public class PlayerMovementHandler : MonoBehaviour
     public void ToggleGravity()
     {
         airResist = !gravity;
+    }
+
+    public void ToggleInput()
+    {
+        inputEnabled = !inputEnabled;
     }
 }
 

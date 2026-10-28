@@ -41,9 +41,23 @@ public class PlayerController : BaseController
         playerMovementHandler.CurrentMoveInput(v);
     }
 
+    // check if we're pressing space when grounded to jump.
+    // if we are in the air, check to see if a wallrun is possible.
     public void CallPlayerJump()
     {
-        playerMovementHandler.PlayerJump();
+        if(GetGroundedVal())
+        {
+            playerMovementHandler.PlayerJump();
+        }
+        else
+        {
+            wallrunHandler.StartWallRun();
+        }
+    }
+
+    public void TogglePlayerMoveInput()
+    {
+        playerMovementHandler.ToggleInput();
     }
 
     public Vector3 GetCameraDir()
@@ -76,4 +90,8 @@ public class PlayerController : BaseController
         grappleHandler.CancelGrapple();
     }
 
+    public float GetMaxVelocity()
+    {
+        return playerMaxV;
+    }
 }

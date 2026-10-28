@@ -13,7 +13,7 @@ public class SlashHandler : MonoBehaviour
 
     // the velocity in the direction of the slash the player should be set to after the teleport.
     // this'll probably be set to the max velocity that the player can move.
-    float slashVelocity = 20.0f;
+    float slashVelocity;
 
     // the time in seconds that it takes for the slash to recharge after use.
     float rechargeTime = 5.0f;
@@ -35,6 +35,7 @@ public class SlashHandler : MonoBehaviour
     {
         controller = transform.GetComponent<PlayerController>();
         solidMask = LayerMask.GetMask("Grappleable","NonGrappleable");
+        slashVelocity = controller.GetMaxVelocity();
     }
 
     void FixedUpdate()

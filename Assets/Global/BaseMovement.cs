@@ -80,7 +80,7 @@ public class BaseMovement : MonoBehaviour
         character.linearVelocity = CheckVelocity(veloc);
     }
 
-    // set the velocity directly, should only be used by the Slash.
+    // set the velocity directly, should only be used by the Slash (and wallrunning)
     public void SetVelocity(Vector3 veloc)
     {
         character.linearVelocity = veloc;
