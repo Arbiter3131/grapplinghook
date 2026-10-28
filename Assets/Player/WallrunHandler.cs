@@ -49,9 +49,12 @@ public class WallrunHandler : MonoBehaviour
     // this gives us the direction to wallrun in.
     public void StartWallRun()
     {
+        // if we are already wallrunning and the player presses space, get off the wall,
+        // then add some vertical velocity.
         if(isWallRunning)
         {
             JumpOff();
+            controller.ChangeVelocity(transform.up/2 * wallRunVelocity);
             isWallRunning = false;
             return;
         }
@@ -85,7 +88,7 @@ public class WallrunHandler : MonoBehaviour
         }
     }
 
-    // if we are wallrunning and the player presses space again, jump off the wall.
+    // when ending wallrunning, toggle gravity and moveinput back on, then disable wallrunning.
     void JumpOff()
     {
         controller.ToggleGravity();
