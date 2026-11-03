@@ -7,7 +7,7 @@ public class MineBehaviour : EnemyBehaviour
 
     Collider collider;
 
-    void Start()
+    new void Start()
     {
         base.Start();
         collider = transform.GetComponent<Collider>();
@@ -21,12 +21,17 @@ public class MineBehaviour : EnemyBehaviour
         {
             otherStats.TakeDamage(1);
         }
-        controller.DeathBehaviour();
+        Death();
     }
     
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public override void Death()
+    {
+        Destroy(transform.gameObject);
     }
 }

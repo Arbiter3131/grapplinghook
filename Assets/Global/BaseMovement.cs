@@ -15,7 +15,11 @@ public class BaseMovement : MonoBehaviour
     float maxVelocity = 1f;
     float maxVelocityY = 5f;
 
+    bool antiSlide = true;
+
     // stopVelocity, when should we decide to set the players velocity to 0 (prevent weird sliding)
+
+    float stopVelocity = 0.05f;
 
     // current velocity that we should move this character by each fixedUpdate.
     // There was a bunch of issues between character controllers and rigidbodies, I finally fixed
@@ -48,10 +52,11 @@ public class BaseMovement : MonoBehaviour
     {
         position = transform.position;
         CheckGrounded();
-        // if(character.linearVelocity.magnitude < 0.05f)
-        // {
-        //     character.linearVelocity = Vector3.zero;
-        // }
+        // to prevent the slight sliding that happens when the player stops moving, disabled when player is dead.
+        if(character.linearVelocity.magnitude < stopVelocity && antiSlide)
+        {
+            character.linearVelocity = Vector3.zero;
+        }
     }
 
     // check to make sure none of the values are going over our maximum velocity in each direction.
@@ -128,5 +133,6 @@ public class BaseMovement : MonoBehaviour
     public void Unfreeze()
     {
         character.constraints = RigidbodyConstraints.None;
+        antiSlide = false;
     }
 }

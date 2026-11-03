@@ -15,9 +15,9 @@ public class EnemyController : BaseController
     }
 
     // called by basestats when hp is depleted.
-    // this should disable all the functions wi
+    // this should disable the behaviour functions.
     public override void DeathBehaviour()
     {
-        
+        behaviour.Death();
     }
 }

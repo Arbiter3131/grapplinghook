@@ -13,6 +13,8 @@ public class BaseStats : MonoBehaviour
 
     BaseController controller;
 
+    bool dead = false;
+
     void Start()
     {
         controller = transform.GetComponent<BaseController>();
@@ -29,8 +31,9 @@ public class BaseStats : MonoBehaviour
         {
             hitPoints -= damageTaken;
         }
-        if(hitPoints <= 0)
+        if(hitPoints <= 0 && !dead)
         {
+            dead = true;
             controller.DeathBehaviour();
         }
     }
