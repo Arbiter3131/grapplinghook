@@ -50,4 +50,10 @@ public abstract class BaseController : MonoBehaviour
     {
         return baseMovement.GetCurrentVelocity();
     }
+
+    // to be overridden by inherited.
+    public virtual void DeathBehaviour()
+    {
+        UnityEngine.Debug.Log("bleh");
+    }
 }

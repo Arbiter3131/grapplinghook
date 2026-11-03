@@ -11,10 +11,15 @@ public class MineBehaviour : EnemyBehaviour
         collider = transform.GetComponent<Collider>();
     }
 
-
+    
     void OnTriggerEnter(Collider collision)
     {
-        UnityEngine.Debug.Log(collision.transform.position);
+        BaseStats otherStats = collision.transform.GetComponent<BaseStats>();
+        if(otherStats != null)
+        {
+            otherStats.TakeDamage(1);
+        }
+        controller.DeathBehaviour();
     }
     // Update is called once per frame
     void Update()

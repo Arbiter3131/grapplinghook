@@ -3,7 +3,7 @@ using UnityEngine;
 public class BaseStats : MonoBehaviour
 {
     // This should be inherited by both Player and Enemies, this will contain the functions to be called upon death, and store statistics.
-    // This will store HP and damage, takedamage and dealdamage functions.
+    // This will store HP, decided to keep the damage dealt in the slashhandler and the enemy behaviours.
 
     protected int hitPoints = 1;
 
@@ -11,17 +11,14 @@ public class BaseStats : MonoBehaviour
 
     protected bool invincible = false;
 
-    void Update()
+    BaseController controller;
+
+    void Start()
     {
-        if(hitPoints <= 0)
-        {
-            DeathBehaviour();
-        }
+        controller = transform.GetComponent<BaseController>();
     }
 
-
-    // to be implemented by inherited classes. This should determine if the enemy just simply dies, or in the case of the mine, the mine explodes shortly after death/contact.
-    protected virtual void DeathBehaviour()
+    void Update()
     {
         
     }
@@ -31,6 +28,10 @@ public class BaseStats : MonoBehaviour
         if(!invincible)
         {
             hitPoints -= damageTaken;
+        }
+        if(hitPoints <= 0)
+        {
+            controller.DeathBehaviour();
         }
     }
 

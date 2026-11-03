@@ -6,9 +6,9 @@ public class EnemyBehaviour : MonoBehaviour
     // for example, for the mine, this should be inherited as a minebehaviour
     // and keep track of the collider to detect if the player enters
     // and then it should start a timer and explode
-    EnemyController controller;
+    protected EnemyController controller;
 
-    
+
 
     protected void Start()
     {
