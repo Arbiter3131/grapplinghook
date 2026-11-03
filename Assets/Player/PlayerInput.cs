@@ -8,6 +8,8 @@ public class PlayerInput : MonoBehaviour
     PlayerInputManager input;
     PlayerController controller;
 
+    bool mouseToggle = true;
+
     void Start()
     {
         input = transform.GetComponent<PlayerInputManager>();
@@ -18,8 +20,11 @@ public class PlayerInput : MonoBehaviour
     // if mouse is moved, this function gets called.
     public void OnLook(InputValue value)
     {
-        Vector2 v = value.Get<Vector2>();
-        controller.MoveCamera(v);
+        if(mouseToggle)
+        {
+            Vector2 v = value.Get<Vector2>();
+            controller.MoveCamera(v);
+        }
     }
 
     public void OnJump()
@@ -35,11 +40,23 @@ public class PlayerInput : MonoBehaviour
 
     public void OnRightClick(InputValue value)
     {
-        controller.AttemptGrapple(value.isPressed);
+        if(mouseToggle)
+        {
+            controller.AttemptGrapple(value.isPressed);
+        }
+       
     }
 
     public void OnClick(InputValue value)
     {
-        controller.AttemptSlash(value.isPressed);
+        if(mouseToggle)
+        {
+            controller.AttemptSlash(value.isPressed);
+        }
+    }
+
+    public void ToggleMouse()
+    {
+        mouseToggle = !mouseToggle;
     }
 }

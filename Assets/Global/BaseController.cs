@@ -31,6 +31,11 @@ public abstract class BaseController : MonoBehaviour
         baseMovement.ApplyVelocity(input);
     }
 
+    public void UnfreezeRotation()
+    {
+        baseMovement.Unfreeze();
+    }
+
     public virtual void HardSetVelocity(Vector3 input)
     {
         baseMovement.SetVelocity(input);

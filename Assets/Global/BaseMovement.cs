@@ -4,7 +4,7 @@ public class BaseMovement : MonoBehaviour
 {
     // BaseMovement should keep track of velocities and acceleration, providing the functions to update those and should handle updating the position of the object its on.
 
-    // height is the length of the raycast we should check to see if this character is standing on something. Default is 1.0f.
+    // height is the length of the raycast we should check to see if this character is standing on something. Default is 1.1f.
     Rigidbody character;
     bool grounded;
     float height = 1.1f;
@@ -48,10 +48,10 @@ public class BaseMovement : MonoBehaviour
     {
         position = transform.position;
         CheckGrounded();
-        if(character.linearVelocity.magnitude < 0.05f)
-        {
-            character.linearVelocity = Vector3.zero;
-        }
+        // if(character.linearVelocity.magnitude < 0.05f)
+        // {
+        //     character.linearVelocity = Vector3.zero;
+        // }
     }
 
     // check to make sure none of the values are going over our maximum velocity in each direction.
@@ -123,5 +123,10 @@ public class BaseMovement : MonoBehaviour
     public void SetHeight(float max)
     {
         height = max;
+    }
+
+    public void Unfreeze()
+    {
+        character.constraints = RigidbodyConstraints.None;
     }
 }

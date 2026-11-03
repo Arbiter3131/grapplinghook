@@ -4,6 +4,8 @@ public class EnemyController : BaseController
 {
     // Enemy controller inherits from BaseController, this is made just in case theres
     // any behaviour that can be duplicated between all enemies.
+
+
     EnemyBehaviour behaviour;
 
     protected override void Start()
@@ -12,8 +14,9 @@ public class EnemyController : BaseController
         behaviour = transform.GetComponent<EnemyBehaviour>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    // called by basestats when hp is depleted.
+    // this should disable all the functions wi
+    public override void DeathBehaviour()
     {
         
     }

@@ -11,6 +11,8 @@ public class PlayerController : BaseController
 
     WallrunHandler wallrunHandler;
 
+    PlayerInput input;
+
     // set player max velocity in directions, should not change the values in basemovement anymore.
     float playerMaxV = 20f;
     float playerMaxVY = 20f;
@@ -22,13 +24,8 @@ public class PlayerController : BaseController
         grappleHandler = transform.GetComponent<GrappleHandler>();
         slashHandler = transform.GetComponent<SlashHandler>();
         wallrunHandler = transform.GetComponent<WallrunHandler>();
+        input = transform.GetComponent<PlayerInput>();
         baseMovement.SetMaxVelocity(playerMaxV, playerMaxVY);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
     }
 
     public void MoveCamera(Vector2 v)
@@ -93,5 +90,19 @@ public class PlayerController : BaseController
     public float GetMaxVelocity()
     {
         return playerMaxV;
+    }
+
+    public void ToggleMouseInput()
+    {
+        input.ToggleMouse();
+    }
+
+    public override void DeathBehaviour()
+    {
+        TogglePlayerMoveInput();
+        StopGrapple();
+        ToggleMouseInput();
+        UnfreezeRotation();
+        baseMovement.SetHeight(0.2f);
     }
 }
