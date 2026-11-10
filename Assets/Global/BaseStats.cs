@@ -15,7 +15,7 @@ public class BaseStats : MonoBehaviour
 
     bool dead = false;
 
-    void Start()
+    protected virtual void Start()
     {
         controller = transform.GetComponent<BaseController>();
     }

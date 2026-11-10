@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 5197179513829138143}
   - component: {fileID: 8217818370376311623}
   - component: {fileID: 1504119245502052932}
-  m_Layer: 0
+  - component: {fileID: 8178831775446991886}
+  - component: {fileID: 5724887716965739711}
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -126,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d0faf9f6512ce4685aca16e99b0106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaxenProjectile
-  player: {fileID: 0}
 --- !u!54 &1504119245502052932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,6 +155,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &8178831775446991886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2314303686657226596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023b49c0f9c975d47a6c3d07c4dadbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseStats
+--- !u!114 &5724887716965739711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2314303686657226596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50c97cc9c50eb74ea9d8b3ee0eacc29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
 --- !u!1 &8245146181309002478
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2541466586136153731}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WaxenProjectile
   m_TagString: Bullet
   m_Icon: {fileID: 0}

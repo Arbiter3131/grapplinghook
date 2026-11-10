@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 2910759098641016491}
   - component: {fileID: 7005412909565904350}
   - component: {fileID: 9048557374113551458}
-  - component: {fileID: 3283171884128921974}
   - component: {fileID: 7494564602694858538}
   - component: {fileID: 2844926949711598261}
   - component: {fileID: 246817030054707026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,18 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50c97cc9c50eb74ea9d8b3ee0eacc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
---- !u!114 &3283171884128921974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8537459060741422350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1d0c3200726b54ea83613cee48ca4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseMovement
 --- !u!114 &7494564602694858538
 MonoBehaviour:
   m_ObjectHideFlags: 0

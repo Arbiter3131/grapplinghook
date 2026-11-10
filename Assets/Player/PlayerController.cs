@@ -13,6 +13,8 @@ public class PlayerController : BaseController
 
     PlayerInput input;
 
+    protected BaseMovement baseMovement;
+
     // set player max velocity in directions, should not change the values in basemovement anymore.
     float playerMaxV = 20f;
     float playerMaxVY = 20f;
@@ -25,12 +27,38 @@ public class PlayerController : BaseController
         slashHandler = transform.GetComponent<SlashHandler>();
         wallrunHandler = transform.GetComponent<WallrunHandler>();
         input = transform.GetComponent<PlayerInput>();
+        baseMovement = transform.GetComponent<BaseMovement>();
         baseMovement.SetMaxVelocity(playerMaxV, playerMaxVY);
     }
 
     public void MoveCamera(Vector2 v)
     {
         playerMovementHandler.CameraMovement(v);
+    }
+
+    public virtual Vector3 GetCurrentVelocity()
+    {
+        return baseMovement.GetCurrentVelocity();
+    }
+
+    public virtual void ChangeVelocity(Vector3 input)
+    {
+        baseMovement.ApplyVelocity(input);
+    }
+
+    public void UnfreezeRotation()
+    {
+        baseMovement.Unfreeze();
+    }
+
+    public virtual void HardSetVelocity(Vector3 input)
+    {
+        baseMovement.SetVelocity(input);
+    }
+
+    public virtual bool GetGroundedVal()
+    {
+        return baseMovement.GetGrounded();
     }
 
     public void PlayerMovement(Vector2 v)

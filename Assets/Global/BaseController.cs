@@ -17,43 +17,19 @@ public abstract class BaseController : MonoBehaviour
     // scriptmodulename = transform.getComponent<ScriptModuleName>();
 
     protected BaseStats baseStats;
-    protected BaseMovement baseMovement;
+
 
     protected virtual void Start()
     {
         baseStats = transform.GetComponent<BaseStats>();
-        baseMovement = transform.GetComponent<BaseMovement>();
+        
     }
 
     // This would allow other modules such as a grappling hook script to call BaseMovement and modify the velocity.
-    public virtual void ChangeVelocity(Vector3 input)
-    {
-        baseMovement.ApplyVelocity(input);
-    }
-
-    public void UnfreezeRotation()
-    {
-        baseMovement.Unfreeze();
-    }
-
-    public virtual void HardSetVelocity(Vector3 input)
-    {
-        baseMovement.SetVelocity(input);
-    }
 
     public virtual void ChangeStats(int stat)
     {
         baseStats.TakeDamage(stat);
-    }
-
-    public virtual bool GetGroundedVal()
-    {
-        return baseMovement.GetGrounded();
-    }
-
-    public virtual Vector3 GetCurrentVelocity()
-    {
-        return baseMovement.GetCurrentVelocity();
     }
 
     // to be overridden by inherited.

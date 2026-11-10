@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 6247978368538557254}
   - component: {fileID: 7937334674399397842}
   - component: {fileID: 7561035279147252869}
-  - component: {fileID: 1453360586848486656}
   - component: {fileID: 5171009922931664427}
   - component: {fileID: 3669344537447476742}
   - component: {fileID: 2292665052591187067}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,18 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023b49c0f9c975d47a6c3d07c4dadbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseStats
---- !u!114 &1453360586848486656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291600888555217572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1d0c3200726b54ea83613cee48ca4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseMovement
 --- !u!114 &5171009922931664427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4552794764045241920}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waxen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

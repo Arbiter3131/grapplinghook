@@ -7,6 +7,10 @@ public class SlashHandler : MonoBehaviour
 
     // layermask for solid walls, we should ignore enemies when checking for obstructions.
     LayerMask solidMask;
+
+    // layermask for enemies, to detect when to Destroy() them.
+
+    LayerMask enemyMask;
     
     // the maximum distance the player should teleport when slashing.
     float slashDistance = 8.0f;
@@ -35,6 +39,7 @@ public class SlashHandler : MonoBehaviour
     {
         controller = transform.GetComponent<PlayerController>();
         solidMask = LayerMask.GetMask("Grappleable","NonGrappleable");
+        enemyMask = LayerMask.GetMask("Enemy");
         slashVelocity = controller.GetMaxVelocity();
     }
 
@@ -83,6 +88,7 @@ public class SlashHandler : MonoBehaviour
         Vector3 dir = controller.GetCameraDir();
         float distance = slashDistance * (Mathf.Min(maxCharge, Time.time - timer)/maxCharge);
         transform.position = CheckObstruction(dir, distance);
+        DamageHitbox(dir, distance);
         controller.HardSetVelocity(dir * slashVelocity);
         timer = Time.time;
         isCharged = false;
@@ -106,8 +112,17 @@ public class SlashHandler : MonoBehaviour
     // create a collider in between original position and new position after slash, damage all enemies
     // located in the collider.
     // will be implemented alongside the enemies.
-    void DamageHitbox()
+    void DamageHitbox(Vector3 dir, float dist)
     {
-        
+        RaycastHit[] hit = Physics.SphereCastAll(transform.position, 5f, dir, dist, enemyMask, QueryTriggerInteraction.Collide);
+        foreach(RaycastHit h in hit)
+        {
+            // UnityEngine.Debug.Log(h.transform.name);
+            BaseStats stat = h.transform.GetComponent<BaseStats>();
+            if(stat != null)
+            {
+                stat.TakeDamage(1);
+            }
+        }
     }
 }
