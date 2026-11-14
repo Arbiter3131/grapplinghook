@@ -18,11 +18,13 @@ public abstract class BaseController : MonoBehaviour
 
     protected BaseStats baseStats;
 
+    protected SoundPlayer soundPlayer;
+
 
     protected virtual void Start()
     {
         baseStats = transform.GetComponent<BaseStats>();
-        
+        soundPlayer = transform.GetComponent<SoundPlayer>();
     }
 
     // This would allow other modules such as a grappling hook script to call BaseMovement and modify the velocity.
@@ -36,5 +38,13 @@ public abstract class BaseController : MonoBehaviour
     public virtual void DeathBehaviour()
     {
         UnityEngine.Debug.Log("bleh");
+    }
+
+    public void CallPlaySound(string name)
+    {
+        if(soundPlayer != null)
+        {
+            soundPlayer.AttemptPlaySound(name);
+        }
     }
 }

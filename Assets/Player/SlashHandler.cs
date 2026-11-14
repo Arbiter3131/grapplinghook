@@ -91,6 +91,7 @@ public class SlashHandler : MonoBehaviour
         DamageHitbox(dir, distance);
         controller.HardSetVelocity(dir * slashVelocity);
         timer = Time.time;
+        controller.CallPlaySound("slash");
         isCharged = false;
     }
 

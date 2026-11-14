@@ -7,10 +7,13 @@ public class MineBehaviour : EnemyBehaviour
 
     Collider collider;
 
+    ParticleSystem particleSystem;
+
     new void Start()
     {
         base.Start();
         collider = transform.GetComponent<Collider>();
+        particleSystem = transform.Find("Explosion").GetComponent<ParticleSystem>();
     }
 
     
@@ -32,6 +35,8 @@ public class MineBehaviour : EnemyBehaviour
 
     public override void Death()
     {
-        Destroy(transform.gameObject);
+        controller.CallPlaySound("explosion");
+        particleSystem.Play();
+        Destroy(transform.gameObject, 0.5f);
     }
 }

@@ -98,6 +98,7 @@ public class WaxenBehaviour : EnemyBehaviour
         if(Time.time - timer >= chargeTime)
         {
             Instantiate(projectile, transform.position + (playerPos - transform.position).normalized * spawnDist, Quaternion.identity);
+            controller.CallPlaySound("enemyshot");
             isCharging = false;
         }
     }

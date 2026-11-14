@@ -59,6 +59,7 @@ public class GrappleHandler : MonoBehaviour
                     grapplePosition = hit.point;
                     length = hit.distance;
                     controller.ToggleAirResist();
+                    controller.CallPlaySound("grapple");
                 }
             }
         }
