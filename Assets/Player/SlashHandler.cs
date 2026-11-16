@@ -28,8 +28,9 @@ public class SlashHandler : MonoBehaviour
     // if the slash is charged or not.
     bool isCharged = true;
 
-    // tracking player input.
-    bool pressed;
+    // if we are currently charging up a slash.
+    bool charging = false;
+
 
     // used to check the time the player charged the slash, and the time that the player released the slash
     // for recharging the slash.
@@ -47,14 +48,32 @@ public class SlashHandler : MonoBehaviour
     {
         if(!isCharged)
         {
-            if(Time.time - timer > rechargeTime)
+            float currTime = Time.time - timer;
+            ShowRecharge(currTime/rechargeTime);
+            if(currTime > rechargeTime)
             {
+                ShowRecharge(1.0f);
                 isCharged = true;
             }
         }
+        if(charging && Time.time - timer > maxCharge)
+        {
+            FullyChargedUI(true);
+        }
     }
 
-    // take input from the player, set pressed to track it.
+    void FullyChargedUI(bool update)
+    {
+        controller.UpdateFullyChargedIcon(update);
+    }
+
+    void ShowRecharge(float time)
+    {
+        controller.UpdateSlashRechargeIcon(time);
+    }
+
+
+    // take input from the player.
     public void SlashInput(bool isClicked)
     {
         if(isCharged)
@@ -62,9 +81,11 @@ public class SlashHandler : MonoBehaviour
             if(isClicked)
             {
                 ChargeSlash();
+                charging = true;
             }
-            else
+            else if (charging)
             {
+                charging = false;
                 Slash();
             }
         }
@@ -92,6 +113,7 @@ public class SlashHandler : MonoBehaviour
         controller.HardSetVelocity(dir * slashVelocity);
         timer = Time.time;
         controller.CallPlaySound("slash");
+        FullyChargedUI(false);
         isCharged = false;
     }
 

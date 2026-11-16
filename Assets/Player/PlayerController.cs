@@ -13,12 +13,14 @@ public class PlayerController : BaseController
 
     PlayerInput input;
 
+    UIHandler ui;
+
     protected BaseMovement baseMovement;
 
     // set player max velocity in directions, should not change the values in basemovement anymore.
     float playerMaxV = 20f;
     float playerMaxVY = 20f;
-
+    
     protected override void Start()
     {
         base.Start();
@@ -28,6 +30,7 @@ public class PlayerController : BaseController
         wallrunHandler = transform.GetComponent<WallrunHandler>();
         input = transform.GetComponent<PlayerInput>();
         baseMovement = transform.GetComponent<BaseMovement>();
+        ui = GameObject.Find("PlayerUI").GetComponent<UIHandler>();
         baseMovement.SetMaxVelocity(playerMaxV, playerMaxVY);
     }
 
@@ -132,5 +135,20 @@ public class PlayerController : BaseController
         ToggleMouseInput();
         UnfreezeRotation();
         baseMovement.SetHeight(0.2f);
+    }
+
+    public void UpdateHPUI(int damage)
+    {
+        ui.UpdateHP(damage);
+    }
+
+    public void UpdateFullyChargedIcon(bool show)
+    {
+        ui.UpdateFullCharge(show);
+    }
+
+    public void UpdateSlashRechargeIcon(float time)
+    {
+        ui.UpdateSlashRecharge(time);
     }
 }

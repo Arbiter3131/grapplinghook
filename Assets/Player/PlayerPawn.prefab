@@ -283,12 +283,12 @@ GameObject:
   - component: {fileID: 5463656718829936079}
   - component: {fileID: 6133172241593638808}
   - component: {fileID: 8899203020167613925}
-  - component: {fileID: 1131120731201816446}
   - component: {fileID: 2066023594399176790}
   - component: {fileID: 5941995970343464541}
   - component: {fileID: 2169406366887023525}
   - component: {fileID: 6700997130396490150}
   - component: {fileID: 656797605206834765}
+  - component: {fileID: 2908744470844071678}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Player
@@ -471,18 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537e7c024b458c54dbc357cd98dc4f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementHandler
---- !u!114 &1131120731201816446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8939120519688027373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 023b49c0f9c975d47a6c3d07c4dadbf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseStats
 --- !u!54 &2066023594399176790
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -561,3 +549,15 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: e149afbeeb4da204aa103da36fef3dbe, type: 3}
   - {fileID: 8300000, guid: 64c5706d568fa1c41b389d2a3e5a6cd7, type: 3}
+--- !u!114 &2908744470844071678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8939120519688027373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251b81d7c58621e40b8af767e6e3189f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats

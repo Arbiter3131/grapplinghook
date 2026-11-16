@@ -11,21 +11,16 @@ public class BaseStats : MonoBehaviour
 
     protected bool invincible = false;
 
-    BaseController controller;
+    protected BaseController controller;
 
-    bool dead = false;
+    protected bool dead = false;
 
     protected virtual void Start()
     {
         controller = transform.GetComponent<BaseController>();
     }
 
-    void Update()
-    {
-        
-    }
-
-    public void TakeDamage(int damageTaken)
+    public virtual void TakeDamage(int damageTaken)
     {
         if(!invincible)
         {
@@ -37,6 +32,4 @@ public class BaseStats : MonoBehaviour
             controller.DeathBehaviour();
         }
     }
-
-
 }

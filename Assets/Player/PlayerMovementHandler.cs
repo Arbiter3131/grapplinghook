@@ -23,11 +23,13 @@ public class PlayerMovementHandler : MonoBehaviour
     bool friction = true;
     float frictionVal = 0.1f;
 
-    // camera fields. Looksensitivity and a value to limiting the up/down angles you can look.
+    // camera fields. Looksensitivity and a value to limiting the up/down angles you can look. CameraFOV to control screen effects
+    // to give more of a sense of speed at high speed values.
     float lookSens = 1.0f;
     float upDownLook = 0.0f;
     Camera camera;
     float lookLimit = 90f;
+    float cameraFov;
 
     // gravAccel is base acceleration of gravity for player, gravity is on by default
     // should be turned off for future wallrunning and slashing mechanics.
@@ -47,6 +49,7 @@ public class PlayerMovementHandler : MonoBehaviour
     void Start()
     {
         camera = transform.GetComponentInChildren<Camera>();
+        cameraFov = camera.fieldOfView;
         controller = transform.GetComponent<PlayerController>();
     }
 
@@ -57,6 +60,7 @@ public class PlayerMovementHandler : MonoBehaviour
         ApplyFriction();
         ApplyAirResistance();
         CallChangeVelocity();
+        CameraEffects();
         // Debug.DrawRay(transform.position, totalAcceleration * 5f, Color.green);
         totalAcceleration = new Vector3(0,0,0);
     }
@@ -77,6 +81,13 @@ public class PlayerMovementHandler : MonoBehaviour
         upDownLook = Mathf.Clamp(upDownLook, -lookLimit, lookLimit);
         
         camera.transform.localRotation = Quaternion.Euler(upDownLook, 0f, 0f);
+    }
+
+    void CameraEffects()
+    {
+        float spee = controller.GetCurrentVelocity().magnitude * 0.1f;
+        float newFov = Mathf.Clamp(spee, -2f, 2f) + cameraFov;
+        camera.fieldOfView = newFov;
     }
 
     public Vector3 GetCameraDirection()
