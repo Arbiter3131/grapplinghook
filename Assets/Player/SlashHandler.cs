@@ -123,7 +123,7 @@ public class SlashHandler : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(transform.position, dir, out hit, length, solidMask))
         {
-            UnityEngine.Debug.Log(hit.point + hit.normal);
+            // UnityEngine.Debug.Log(hit.point + hit.normal);
             return hit.point + hit.normal;
         }
         else
@@ -132,9 +132,8 @@ public class SlashHandler : MonoBehaviour
         }
     }
 
-    // create a collider in between original position and new position after slash, damage all enemies
-    // located in the collider.
-    // will be implemented alongside the enemies.
+    // spherecast in the direction and distance of the slash, if it hits enemies
+    // deal damage to them.
     void DamageHitbox(Vector3 dir, float dist)
     {
         RaycastHit[] hit = Physics.SphereCastAll(transform.position, 5f, dir, dist, enemyMask, QueryTriggerInteraction.Collide);
