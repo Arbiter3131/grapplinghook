@@ -61,8 +61,16 @@ public class PlayerMovementHandler : MonoBehaviour
         ApplyAirResistance();
         CallChangeVelocity();
         CameraEffects();
+        HeightLimit();
         // Debug.DrawRay(transform.position, totalAcceleration * 5f, Color.green);
         totalAcceleration = new Vector3(0,0,0);
+    }
+
+    // kill the player if they fall off the map.
+    void HeightLimit()
+    {
+        if(transform.position.y < -100f)
+            controller.ChangeStats(3);
     }
 
     // Passed the Vector2 from the input.
