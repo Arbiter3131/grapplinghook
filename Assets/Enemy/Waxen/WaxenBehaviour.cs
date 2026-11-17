@@ -18,7 +18,7 @@ public class WaxenBehaviour : EnemyBehaviour
     float chargeTime = 3.0f;
 
     // max range that we can spot the player.
-    float maxRange = 50.0f;
+    float maxRange = 80.0f;
 
     // are we currently charging an attack
     bool isCharging = false;
