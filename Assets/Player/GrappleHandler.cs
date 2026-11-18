@@ -13,6 +13,14 @@ public class GrappleHandler : MonoBehaviour
     // Where we are grappled to.
     Vector3 grapplePosition;
 
+    // a reference to a prefab that we create at the position of the grappling hook.
+    // used to indicate where the player has grappled.
+    [SerializeField] GameObject grappleHook;
+
+    GameObject currentGrapple;
+
+    [SerializeField] LineRenderer line;
+
     // Speed we want to pull the player towards the grappling hook.
     // This may be kept or not, initial intention was for the grappling hook
     // to just be used to change directions and swing.
@@ -35,6 +43,7 @@ public class GrappleHandler : MonoBehaviour
     {
         if(isGrappled)
         {
+            DrawLine();
             GrapplePhysics();
         }
     }
@@ -59,6 +68,7 @@ public class GrappleHandler : MonoBehaviour
                     grapplePosition = hit.point;
                     length = hit.distance;
                     controller.ToggleAirResist();
+                    currentGrapple = Instantiate(grappleHook, grapplePosition, transform.rotation);
                     controller.CallPlaySound("grapple");
                 }
             }
@@ -69,6 +79,8 @@ public class GrappleHandler : MonoBehaviour
             // only toggle air resist if we were in a successful grapple.
             if(isGrappled)
             {
+                DeleteLine();
+                Destroy(currentGrapple);
                 controller.ToggleAirResist();
             }
             isGrappled = false;
@@ -80,9 +92,28 @@ public class GrappleHandler : MonoBehaviour
     {
         if(isGrappled)
         {
+            DeleteLine();
+            Destroy(currentGrapple);
             controller.ToggleAirResist();
         }
         isGrappled = false;
+    }
+
+    void DrawLine()
+    {
+        line.startWidth = 0.1f;
+        line.endWidth = 0.1f;
+
+        line.positionCount = 2;
+
+        line.SetPosition(0, transform.position);
+        line.SetPosition(1, grapplePosition);
+    }
+
+    void DeleteLine()
+    {
+        line.startWidth = 0f;
+        line.endWidth = 0f;
     }
 
     // for now, just accelerate the player towards the grappled points until released.
@@ -124,7 +155,7 @@ public class GrappleHandler : MonoBehaviour
         Vector3 currVeloc = controller.GetCurrentVelocity();
         Vector3 velocAwayFromGrapple = Vector3.Project(currVeloc, grappleVector);
         float dotProduct = Vector3.Dot(grappleVector, velocAwayFromGrapple);
-        Debug.DrawRay(transform.position, grappleVector*length, Color.red);
+        // Debug.DrawRay(transform.position, grappleVector*length, Color.red);
         if(grappleVector.magnitude > length && dotProduct < 0)
         {
             controller.ChangeVelocity(velocAwayFromGrapple * -1);

@@ -25,7 +25,7 @@ public class PursuantBehaviour : EnemyBehaviour
     bool spotted = false;
 
     // max spot range
-    float maxRange = 50.0f;
+    float maxRange = 20.0f;
 
     Collider collider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -78,7 +78,7 @@ public class PursuantBehaviour : EnemyBehaviour
             }
             else
             {
-                spotted = true;
+                spotted = false;
             }
         }
     }
