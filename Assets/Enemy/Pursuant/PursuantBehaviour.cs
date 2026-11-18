@@ -8,15 +8,18 @@ public class PursuantBehaviour : EnemyBehaviour
 
     // This is the Pursuant, an enemy that, when activated, follows a direct path to the player, albeit slowly.
     // Similar to the Waxen's bullets, but can go through walls and turns slower.
+
+    // This has been changed, it is now very fast and tracks the player better.
+    // It is an enemy to try to avoid, it will die shortly after spotting the player.
     GameObject player;
 
     Vector3 playerPos;
 
     // Speed of the Pursuant.
-    float speed = 0.1f;
+    float speed = 0.5f;
 
     // how much we should track the player, aka how slow the projectile turns.
-    float trackSpeed = 0.05f;
+    float trackSpeed = 0.06f;
 
     // current direction and speed
     Vector3 moveVector = new Vector3(0f,0f,0f);
@@ -26,6 +29,10 @@ public class PursuantBehaviour : EnemyBehaviour
 
     // max spot range
     float maxRange = 20.0f;
+
+    float timer;
+
+    float deathTimer = 10.0f;
 
     Collider collider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,6 +55,7 @@ public class PursuantBehaviour : EnemyBehaviour
         {
             SlowTrack();
             Move();
+            TimedDeath();
         }
         else
         {
@@ -100,5 +108,17 @@ public class PursuantBehaviour : EnemyBehaviour
     public override void Death()
     {
         Destroy(transform.gameObject);
+    }
+
+    void TimedDeath()
+    {
+        if(timer == null)
+        {
+            timer = Time.time;
+        }
+        if(Time.time > timer + deathTimer)
+        {
+            Death();
+        }
     }
 }
