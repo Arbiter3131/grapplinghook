@@ -62,7 +62,7 @@ public class PursuantBehaviour : EnemyBehaviour
             BaseStats otherStats = collision.transform.GetComponent<BaseStats>();
             if(otherStats != null)
             {
-                otherStats.TakeDamage(1);
+                otherStats.TakeDamage(3);
             }
         }
     }
