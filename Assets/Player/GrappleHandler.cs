@@ -13,6 +13,8 @@ public class GrappleHandler : MonoBehaviour
     // Where we are grappled to.
     Vector3 grapplePosition;
 
+    Vector3 graphicsPosition;
+
     // a reference to a prefab that we create at the position of the grappling hook.
     // used to indicate where the player has grappled.
     [SerializeField] GameObject grappleHook;
@@ -68,7 +70,9 @@ public class GrappleHandler : MonoBehaviour
                     grapplePosition = hit.point;
                     length = hit.distance;
                     controller.ToggleAirResist();
-                    currentGrapple = Instantiate(grappleHook, grapplePosition, transform.rotation);
+                    // place the grapple graphics a bit away so it doesnt clip into the wall.
+                    graphicsPosition = grapplePosition + hit.normal;
+                    currentGrapple = Instantiate(grappleHook, graphicsPosition, transform.rotation);
                     controller.CallPlaySound("grapple");
                 }
             }
@@ -106,8 +110,9 @@ public class GrappleHandler : MonoBehaviour
 
         line.positionCount = 2;
 
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, grapplePosition);
+        line.SetPosition(0, transform.position + transform.right);
+        // have to also place the position a bit further as well to line up.
+        line.SetPosition(1, graphicsPosition);
     }
 
     void DeleteLine()

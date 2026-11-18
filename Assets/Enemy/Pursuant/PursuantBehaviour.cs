@@ -82,6 +82,7 @@ public class PursuantBehaviour : EnemyBehaviour
         {
             if(hit.transform.gameObject.tag == "Player")
             {
+                timer = Time.time;
                 spotted = true;
             }
             else
@@ -112,10 +113,6 @@ public class PursuantBehaviour : EnemyBehaviour
 
     void TimedDeath()
     {
-        if(timer == null)
-        {
-            timer = Time.time;
-        }
         if(Time.time > timer + deathTimer)
         {
             Death();
