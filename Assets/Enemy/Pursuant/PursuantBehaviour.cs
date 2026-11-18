@@ -21,6 +21,12 @@ public class PursuantBehaviour : EnemyBehaviour
     // current direction and speed
     Vector3 moveVector = new Vector3(0f,0f,0f);
 
+    // spotted, if the player has entered the Pursuant's range, so we dont end up just moving towards them across the map.
+    bool spotted = false;
+
+    // max spot range
+    float maxRange = 50.0f;
+
     Collider collider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     new void Start()
@@ -38,8 +44,15 @@ public class PursuantBehaviour : EnemyBehaviour
     void FixedUpdate()
     {
         playerPos = player.transform.position;
-        SlowTrack();
-        Move();
+        if(spotted)
+        {
+            SlowTrack();
+            Move();
+        }
+        else
+        {
+            CheckForPlayer();
+        }
     }
 
     void OnTriggerEnter(Collider collision)
@@ -50,6 +63,22 @@ public class PursuantBehaviour : EnemyBehaviour
             if(otherStats != null)
             {
                 otherStats.TakeDamage(1);
+            }
+        }
+    }
+
+    void CheckForPlayer()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, playerPos - transform.position, out hit, maxRange))
+        {
+            if(hit.transform.gameObject.tag == "Player")
+            {
+                spotted = true;
+            }
+            else
+            {
+                spotted = true;
             }
         }
     }

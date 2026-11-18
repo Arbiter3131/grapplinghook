@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -53,6 +54,18 @@ public class PlayerInput : MonoBehaviour
         {
             controller.AttemptSlash(value.isPressed);
         }
+    }
+
+    // easy way to reload the scene.
+    public void OnR()
+    {
+        SceneManager.LoadScene("MainLevel");
+    }
+
+    // exit the game.
+    public void OnEsc()
+    {
+        Application.Quit();
     }
 
     public void ToggleMouse()
