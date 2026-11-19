@@ -110,7 +110,7 @@ public class GrappleHandler : MonoBehaviour
 
         line.positionCount = 2;
 
-        line.SetPosition(0, transform.position + transform.right);
+        line.SetPosition(0, transform.position + transform.right*-1);
         // have to also place the position a bit further as well to line up.
         line.SetPosition(1, graphicsPosition);
     }

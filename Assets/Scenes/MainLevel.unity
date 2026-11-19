@@ -3093,6 +3093,20 @@ Transform:
   - {fileID: 1264467914}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &912358289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4238562897792959035, guid: ce05494f96ebae54bb21445113fb2eb7, type: 3}
+  m_PrefabInstance: {fileID: 2096073740}
+  m_PrefabAsset: {fileID: 0}
+--- !u!45 &912358294
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912358289}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: ff5afb80484c39949b5a7d92b0d21ae6, type: 2}
 --- !u!1001 &915065104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7821,7 +7835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6431544255665940005, guid: ce05494f96ebae54bb21445113fb2eb7, type: 3}
       propertyPath: m_ClearFlags
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6431544255665940005, guid: ce05494f96ebae54bb21445113fb2eb7, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -7842,7 +7856,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4238562897792959035, guid: ce05494f96ebae54bb21445113fb2eb7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 912358294}
   m_SourcePrefab: {fileID: 100100000, guid: ce05494f96ebae54bb21445113fb2eb7, type: 3}
 --- !u!1001 &2123850926
 PrefabInstance:
