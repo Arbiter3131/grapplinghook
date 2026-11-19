@@ -34,11 +34,21 @@ public class PursuantBehaviour : EnemyBehaviour
 
     float deathTimer = 10.0f;
 
+    // audio source for the chase sound effect, to make it easier to know when being chased through walls by a pursuant.
+    AudioSource audioSource;
+
+    [SerializeField] AudioClip clip;
+
+    float musicTimer;
+
+    float currentLength;
+
     Collider collider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     new void Start()
     {
         collider = transform.GetComponent<Collider>();
+        audioSource = transform.GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player");
         if(player == null)
         {
@@ -56,6 +66,10 @@ public class PursuantBehaviour : EnemyBehaviour
             SlowTrack();
             Move();
             TimedDeath();
+            if(clip != null && Time.time > musicTimer + currentLength)
+            {
+                ChaseSound();
+            }
         }
         else
         {
@@ -72,6 +86,16 @@ public class PursuantBehaviour : EnemyBehaviour
             {
                 otherStats.TakeDamage(3);
             }
+        }
+    }
+
+    void ChaseSound()
+    {
+        if(clip != null)
+        {
+            musicTimer = Time.time;
+            currentLength = clip.length;
+            audioSource.PlayOneShot(clip);
         }
     }
 
