@@ -8,5 +8,10 @@ RMB- Grapple to a surface within range.
 
 Space- Jump, and when near a wall in mid-air, press space to wallrun, with space jumping you off of the wall.
 
+Hold R- Restart level
+
+Hold ESC- Exit game
+
+Prototype Demo Footage:
 https://youtu.be/W_ioG2bNjYg
 
