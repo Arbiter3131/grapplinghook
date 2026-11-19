@@ -8,7 +8,7 @@ public class WaxenProjectile : EnemyBehaviour
     Vector3 playerPos;
 
     // Projectile speed.
-    float speed = 0.2f;
+    float speed = 0.3f;
 
     // how much we should track the player, aka how slow the projectile turns.
     float trackSpeed = 0.1f;
