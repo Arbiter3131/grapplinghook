@@ -15,3 +15,5 @@ Hold ESC- Exit game
 Prototype Demo Footage:
 https://youtu.be/W_ioG2bNjYg
 
+Finalized Footage:
+https://youtu.be/CBFSBUS1x18
